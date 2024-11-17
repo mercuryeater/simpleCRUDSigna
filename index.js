@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const dotenv = require("dotenv");
 const brandsRoute = require("./routes/brands.route.js");
+
+dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -15,11 +18,13 @@ app.get("/", (req, res) => {
 
 mongoose
   .connect(
-    "mongodb+srv://federicoc03:treshold911@backendtestbrandregistr.3syi2.mongodb.net/Node-API?retryWrites=true&w=majority&appName=BackendTestBrandRegistry"
+    `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@backendtestbrandregistr.3syi2.mongodb.net/Node-API?retryWrites=true&w=majority&appName=BackendTestBrandRegistry`
   )
   .then(() => console.log("Connected to db!"))
   .catch((err) => console.log("Connection error", err));
 
-app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000");
+app.listen(process.env.PORT, () => {
+  console.log(
+    `Server is running on http://localhost:${process.env.MONGODB_USER}`
+  );
 });
