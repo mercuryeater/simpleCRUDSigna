@@ -9,6 +9,8 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const PORT = process.env.PORT || 3000;
+
 //routes
 app.use("/api/brands", brandsRoute);
 
@@ -23,8 +25,6 @@ mongoose
   .then(() => console.log("Connected to db!"))
   .catch((err) => console.log("Connection error", err));
 
-app.listen(process.env.PORT, () => {
-  console.log(
-    `Server is running on http://localhost:${process.env.MONGODB_USER}`
-  );
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
